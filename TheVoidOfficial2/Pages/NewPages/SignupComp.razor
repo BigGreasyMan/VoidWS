@@ -1,0 +1,60 @@
+﻿@page "/Join"
+@using TheVoidOfficial2.Data.ValidationModels;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager;
+@inject UserManager<IdentityUser> _userManager;
+@inject SignInManager<IdentityUser> _signInManager;
+
+<h3>SignUp</h3>
+
+
+<EditForm Model="_newUser" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <InputText @bind-Value="_newUser.UserName" />
+    <InputText @bind-Value="_newUser.Email" />
+    <InputText @bind-Value="_newUser.Phonenumber" />
+    <InputText @bind-Value="_newUser.Password" />
+    <button type="submit">Submit</button>
+
+</EditForm>
+@code {
+    private NewUser _newUser = new NewUser();
+    private async Task HandleValidSubmit()
+    {
+        var newIdentity = new IdentityUser() { UserName = _newUser.UserName, Email = _newUser.Email, PhoneNumber = _newUser.Phonenumber };
+        var result = await _userManager.CreateAsync(newIdentity, _newUser.Password);
+        if (result.Succeeded)
+        {
+
+            
+            // _logger.LogInformation("User created a new account with password.");
+
+            //var code = await _userManager.GenerateEmailConfirmationTokenAsync(newIdentity);
+            //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            //var callbackUrl = Url.Page(
+            //    "/Account/ConfirmEmail",
+            //    pageHandler: null,
+            //    values: new { area = "Identity", userId = user.Id, code = code },
+            //    protocol: Request.Scheme);
+
+            //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+            //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            //{
+            //    return RedirectToPage("RegisterConfirmation",
+            //                          new { email = Input.Email });
+            //}
+            // else
+            //{
+            if (await _signInManager.CanSignInAsync(newIdentity))
+            {
+                await _signInManager.CheckPasswordSignInAsync(newIdentity, _newUser.Password, false);
+
+            }
+            //NavigationManager.NavigateTo("/counter/", forceLoad: true);
+            // }
+        }
+    }
+}

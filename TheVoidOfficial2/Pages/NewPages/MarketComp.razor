@@ -1,0 +1,103 @@
+﻿
+@using Microsoft.EntityFrameworkCore;
+@using TheVoidOfficial2.Data;
+@using TheVoidOfficial2.Logic.Database;
+@using Microsoft.AspNetCore.Http;
+
+
+@inject IJSRuntime JS;
+@inject IDbContextFactory<ApplicationDbContext> fc;
+
+{
+
+<div style="        background-color: #0a0a0a;
+        width: 450px;
+        height: auto;
+        margin-right: auto;
+        margin-left: auto;
+        opacity: 0.5;
+        position: relative;
+        color: #990a0a;
+
+                    ">
+    <h1 style="        margin-left: 10px;
+	letter-spacing:10px;
+        font-size: 28px;
+                    ">
+        [MarketPlace()]
+    </h1>
+
+    <br>
+
+
+    <div style="  width: 450px; height: 50px;  position: relative; letter-spacing: 1px; font-family: 'Times New Roman';" id="main">
+
+    </div>
+    <br>
+    @*@for (int i = 0; i < items.Count; i++)
+        {*@
+
+    <div style="width: 400px; margin-left: auto; margin-right: auto; position: relative; font-size: 20px; ">
+        <span style="margin-left: auto; margin-right: auto; text-align:center;display: block; ">
+            [===================================]
+        </span>
+        <span style="margin-left: auto; margin-right: auto;  ">
+            @*@items[i].Name*@
+        </span>
+        <span style="margin-left: auto; margin-right: auto;  ">
+            @*@items[i].Qty*@
+        </span>
+        <br>
+        <span style="margin-left: auto; margin-right: auto;  display: inline;">
+            [0/1021]
+        </span>
+        <span style="margin-left: auto; margin-right: auto;  display: inline;">
+            [BUY]
+        </span>
+        <span style="margin-left: auto; margin-right: auto; text-align:center;display: block; ">
+            [===================================]
+        </span>
+        <img style="position: absolute; width: 55px; height: 55px; top: 20%; left: 80%;" @*src="@items[i].ImageLocation" *@ />
+    </div>
+
+
+
+    <br>
+
+    @*}*@
+
+
+</div>
+@code {
+
+    private IJSObjectReference module;
+
+    List<MarketItem> items = new List<MarketItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("Market Loaded");
+       
+    }
+    protected override Task OnParametersSetAsync()
+    {
+        return base.OnParametersSetAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+           var data = DatabaseManager.ReturnAllMarketItems(fc.CreateDbContext());
+
+           await JS.InvokeAsync<string>("summonPageBar");
+        }
+    }
+
+    
+   
+
+
+
+
+}

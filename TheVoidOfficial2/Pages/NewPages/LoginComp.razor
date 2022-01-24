@@ -1,0 +1,63 @@
+﻿@page "/Enter"
+@using TheVoidOfficial2.Data.ValidationModels
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using TheVoidOfficial2.Logic.Middleware
+
+
+@inject NavigationManager NavigationManager
+@inject UserManager<IdentityUser> _userManager
+@inject SignInManager<IdentityUser> _signInManager
+
+<h3>Enter</h3>
+<TheVoidOfficial2.Pages.SideModules.TextComponent _name="man" _dialogs="@_dialogs"></TheVoidOfficial2.Pages.SideModules.TextComponent>
+
+
+
+<EditForm Model="_currentUser" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <InputText @bind-Value="_currentUser.Username" />
+    <InputText @bind-Value="_currentUser.Password" />
+    <button type="submit">Submit</button>
+
+</EditForm>
+@code {
+    private List<string> _dialogs = new List<string>() { "This is some random dialog", "Dialog 2", "Dialog3" };
+    private CurrentUser _currentUser = new CurrentUser();
+    private async Task HandleValidSubmit()
+    {
+
+        var usr = await _userManager.FindByNameAsync(_currentUser.Username);
+
+        if (usr == null)
+        {
+            //error = "User not found";
+            return;
+        }
+        if (await _signInManager.CanSignInAsync(usr))
+        {
+            var result = await _signInManager.CheckPasswordSignInAsync(usr, _currentUser.Password, true);
+            if (result == Microsoft.AspNetCore.Identity.SignInResult.Success)
+            {
+                Guid key = Guid.NewGuid();
+                BlazorLoginMiddleware.BlazorCookieLoginMiddleware.Logins[key] = new BlazorLoginMiddleware.LoginInfo { Username = _currentUser.Username, Password = _currentUser.Password };
+                NavigationManager.NavigateTo($"/login?key={key}", true);
+            }
+            else
+            {
+                // error = "Login failed. Check your password.";
+            }
+
+
+
+        }
+
+    }
+    protected override Task OnInitializedAsync()
+    {
+
+        // NavigationManager.NavigateTo("Identity/Account/Login", forceLoad: true);
+        // await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        return base.OnInitializedAsync();
+    }
+}

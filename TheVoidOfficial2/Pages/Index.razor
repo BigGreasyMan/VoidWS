@@ -1,0 +1,31 @@
+﻿@page "/"
+@using TheVoidOfficial2.Logic.Database;
+<TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+    <PageContent>
+        <TheVoidOfficial2.Pages.SideModules.TextComponent _dialog="Welcome to the void..... << Proceed to one of the following options, " >
+    
+        </TheVoidOfficial2.Pages.SideModules.TextComponent>
+        <br />
+        <br />
+    <div class="Nav">
+       <a> LOGIN </a>
+          <label> || </label>
+       <a> JOIN </a>
+          <label> || </label>
+       <a> MARKET </a>
+          <label> || </label>
+       <a> STREAMS </a>
+    </div>
+    </PageContent>
+</TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+
+@code
+{     
+    protected override async Task OnInitializedAsync()
+    {
+        
+
+        await base.OnInitializedAsync();
+    }
+}
+    
