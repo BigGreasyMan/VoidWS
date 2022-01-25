@@ -1,13 +1,18 @@
 ﻿@page "/"
 @using TheVoidOfficial2.Logic.Database;
+@using TheVoidOfficial2.Pages.SideModules;
+@inject IJSRuntime JS;
 <TheVoidOfficial2.Pages.SideModules.ContentPresenter>
     <PageContent>
-        <TheVoidOfficial2.Pages.SideModules.TextComponent _dialog="Welcome to the void..... << Proceed to one of the following options, " >
+        <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Welcome to the void..... << Proceed to one of the following options, " >
     
         </TheVoidOfficial2.Pages.SideModules.TextComponent>
+
         <br />
         <br />
-    <div class="Nav">
+        <br />
+        <br />
+    <div id="nav" style="opacity:0" class="Nav">
        <a> LOGIN </a>
           <label> || </label>
        <a> JOIN </a>
@@ -16,16 +21,39 @@
           <label> || </label>
        <a> STREAMS </a>
     </div>
+
     </PageContent>
 </TheVoidOfficial2.Pages.SideModules.ContentPresenter>
 
 @code
-{     
+{
+    TextComponent textComponent;
     protected override async Task OnInitializedAsync()
     {
-        
+        //textComponent.DialogFished += DialogFinished;
 
         await base.OnInitializedAsync();
     }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        textComponent.DialogFished += DialogFinished;
+        base.OnAfterRender(firstRender);
+    }
+
+    private void DialogFinished(object sender, EventArgs e)
+    {
+        
+        var x = new Action(async () => 
+        { 
+           await JS.InvokeVoidAsync("animationFade", "nav"); 
+        });
+
+        x.Invoke();
+
+        
+        Console.WriteLine("Process Completed!1");
+    }
+
 }
     

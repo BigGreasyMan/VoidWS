@@ -7822,11 +7822,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\TheVoidOfficial2.csproj",
+      "projectUniqueName": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\TheVoidOfficial2.csproj",
       "projectName": "TheVoidOfficial2",
-      "projectPath": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\TheVoidOfficial2.csproj",
+      "projectPath": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\TheVoidOfficial2.csproj",
       "packagesPath": "C:\\Users\\paulv\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\",
+      "outputPath": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

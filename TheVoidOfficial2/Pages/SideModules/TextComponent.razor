@@ -8,14 +8,15 @@
     Void Terminal V1 <span>©</span>  
 </label>
 
-<button @onclick="SpeedChange" style="position:absolute; width:100px; left:20%; height:25px">@delay</button>
+@*<button @onclick="SpeedChange" style="position:absolute; width:100px; left:20%; height:25px">@delay</button>*@
 
-<label class="TerminalHead" style=" right:0%;">
+<label class="TerminalHead" id="flow" style="right:0%;">
    Location: <span>"/"</span> -  Data Rec: <span>102 KB</span> - Data Sent: <span>102 KB</span> -   
 </label>
 </div>
 
 <br />
+
 <br />
 
 <label id="textComp"  style="width:400px; height:400px; color:#843EE6"></label>
@@ -29,9 +30,9 @@
     [Parameter]
     public string _dialog { get; set; }
 
-    int delay = 100;
+    int delay = 20;
 
-  
+    public event EventHandler DialogFished;
 
     ElementReference _lab;
 
@@ -47,7 +48,7 @@
 
         for(int x = 0; x < currentDialog.Count(); x++)
         {
-            
+
             await Task.Delay(delay);
 
             var cChar = currentDialog[x].ToString();
@@ -65,7 +66,7 @@
 
 
         }
-
+        DialogFished?.Invoke(this, EventArgs.Empty);
 
     }
 

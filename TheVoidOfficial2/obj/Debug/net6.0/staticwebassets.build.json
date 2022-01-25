@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OBQ2MOY47JpG0kq+ne0hK3yUPuIvCtRlcADE5FTUQIg=",
+  "Hash": "FwYS7csFjK9jGSyevurWLJf8roRkUuYrrEiJM+AuLVQ=",
   "Source": "TheVoidOfficial2",
   "BasePath": "_content/TheVoidOfficial2",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "TheVoidOfficial2\\wwwroot",
       "Source": "TheVoidOfficial2",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "Pattern": "**"
     }
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "C:\\Users\\paulv\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\5.0.8\\staticwebassets\\V4\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\TheVoidOfficial2.styles.css",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\TheVoidOfficial2.styles.css",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "TheVoidOfficial2.styles.css",
       "AssetKind": "All",
@@ -643,13 +643,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\TheVoidOfficial2.styles.css"
+      "OriginalItemSpec": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\TheVoidOfficial2.styles.css"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\TheVoidOfficial2.bundle.scp.css",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\TheVoidOfficial2.bundle.scp.css",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "TheVoidOfficial2.bundle.scp.css",
       "AssetKind": "All",
@@ -660,13 +660,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\TheVoidOfficial2.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\TheVoidOfficial2.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\Back.svg",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\Back.svg",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "Back.svg",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\Back.svg"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\Buybutton.svg",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\Buybutton.svg",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "Buybutton.svg",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\Buybutton.svg"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\BuyButton2.svg",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\BuyButton2.svg",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "BuyButton2.svg",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\BuyButton2.svg"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\css\\navbar.css",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\css\\navbar.css",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "css/navbar.css",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\css\\navbar.css"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\css\\site.css",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\favicon.ico",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\animations\\arrowPoint.js",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\animations\\arrowPoint.js",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/animations/arrowPoint.js",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\js\\animations\\arrowPoint.js"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\animations\\arrowPoint.json",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\animations\\arrowPoint.json",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/animations/arrowPoint.json",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\js\\animations\\arrowPoint.json"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\bodymovin\\lottie.js",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\bodymovin\\lottie.js",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/bodymovin/lottie.js",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bodymovin\\lottie.js"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\Helper.js",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\Helper.js",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/Helper.js",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\js\\Helper.js"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\pageBar.js",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\pageBar.js",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/pageBar.js",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\js\\pageBar.js"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\js\\testSlideAnimation.js",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\js\\testSlideAnimation.js",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "js/testSlideAnimation.js",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\js\\testSlideAnimation.js"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\Rock.jfif",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\Rock.jfif",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "Rock.jfif",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\Rock.jfif"
     },
     {
-      "Identity": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\Star.svg",
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\Star.svg",
       "SourceId": "TheVoidOfficial2",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\paulv\\source\\repos\\TheVoidOfficial2\\TheVoidOfficial2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
       "BasePath": "_content/TheVoidOfficial2",
       "RelativePath": "Star.svg",
       "AssetKind": "All",
