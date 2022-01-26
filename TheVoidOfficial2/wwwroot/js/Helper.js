@@ -14,12 +14,14 @@ function appendSpace(text)
 }
 function animationFade(name)
 {
-   console.log("Fade Started")
+   console.log("Fade Started:"+name)
     var element = document.getElementById(name);
+    console.log("Fade Started:" + element)
 
     let anim1 = setInterval(function () {
-        var final = null;
-       
+        
+        console.log(element.style.opacity);
+
         element.style.opacity = parseFloat(element.style.opacity) + 0.02;
 
         if (parseFloat(element.style.opacity) >= 1) {

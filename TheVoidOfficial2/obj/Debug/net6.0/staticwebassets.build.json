@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FwYS7csFjK9jGSyevurWLJf8roRkUuYrrEiJM+AuLVQ=",
+  "Hash": "byGFEaAKNqSUseW7excRqqxbTHMdaRea0UUK9rsMCrI=",
   "Source": "TheVoidOfficial2",
   "BasePath": "_content/TheVoidOfficial2",
   "Mode": "Default",
@@ -865,6 +865,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\testSlideAnimation.js"
+    },
+    {
+      "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\productPlaceholder.png",
+      "SourceId": "TheVoidOfficial2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\",
+      "BasePath": "_content/TheVoidOfficial2",
+      "RelativePath": "productPlaceholder.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\productPlaceholder.png"
     },
     {
       "Identity": "C:\\Users\\paulv\\OneDrive\\Desktop\\Void\\TheVoidOfficial2\\wwwroot\\Rock.jfif",

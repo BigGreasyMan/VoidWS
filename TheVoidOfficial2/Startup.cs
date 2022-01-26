@@ -59,7 +59,7 @@ namespace TheVoidOfficial2
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<WeatherForecastService>();
-            //services.AddSingleton<DatabaseManager>();
+            services.AddTransient<IDatabaseManager, DatabaseManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

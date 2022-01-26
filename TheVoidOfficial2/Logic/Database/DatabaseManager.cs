@@ -8,56 +8,44 @@ using TheVoidOfficial2.Data;
 
 namespace TheVoidOfficial2.Logic.Database
 {
-    public static class DatabaseManager
+    public class DatabaseManager : IDatabaseManager
     {
-        //Dictionary<string, ApplicationDbContext> _UserContexts = new Dictionary<string, ApplicationDbContext>();
 
-        //IDbContextFactory<ApplicationDbContext> _dbContextFactory;
-
-        //private int _concurrentDBSessions = 20;
-        //public DatabaseManager(IDbContextFactory<ApplicationDbContext> dbContextFactory)
-        //{
-        //    _dbContextFactory = dbContextFactory;
-        //}
-       
-        //public void CreateSessionContext(string key) 
-        //{
-        //    Console.WriteLine($"\n DB Session Created by: {key}");
-
-        //    Console.WriteLine($"\n Active Sessions  {_UserContexts}");
-
-        //    if (_UserContexts.TryGetValue(key, out ApplicationDbContext value)) { return; }
-
-        //        //if (_UserContexts.Count > _concurrentDBSessions)
-        //        //    _UserContexts.Remove(_UserContexts.Keys.First());
-
-        //    var db = _dbContextFactory.CreateDbContext();
-        //    _UserContexts.Add(key, db);
-            
-        //}
-        //public void DisposeSessionContext(string key)
-        //{
-        //    _UserContexts[key].Dispose();
-        //    Console.WriteLine($"\n DB Session Disposed by: {key}");
-        //}
-
-
-        //public async Task<int> AddMarketItem(ApplicationDbContext _dbContext,item) 
-        //{
-            
-            
-        //       await _dbContext.MarketItems.AddAsync(item);
-        //       await _dbContext.SaveChangesAsync();
-
-            
-        //}
-        public static async Task<List<MarketItem>> ReturnAllMarketItems(ApplicationDbContext _dbContext)
+        public async Task<List<MarketItem>> ReturnRecommednedProducts(ApplicationDbContext _dbContext)
         {
             Console.WriteLine("Awaiting DataBase | Action: Return ALL");
-            var output =  await _dbContext.MarketItems.ToListAsync();
-            await Task.Delay(10000);
+
+            var output = await _dbContext.MarketItems.ToListAsync();
+
+            await Task.Delay(2000);
+
             Console.WriteLine($"Retrieved Data : {output}");
+
             _dbContext.Dispose();
+
+            return output;
+        }
+
+        public async Task<List<MarketItem>> ReturnproductsByTerm(ApplicationDbContext _dbContext, string term)
+        {
+            Console.WriteLine("Awaiting DataBase | Action: Return By Term");
+            //TODO this is probs shitty ass code
+           // List<MarketItem> output = null;
+            //try
+            //{
+            //    output = await _dbContext.MarketItems.Where(entitiy => entitiy.Name.IndexOf
+            //    (term, StringComparison.OrdinalIgnoreCase) >= 0).ToListAsync();
+            //}
+            //catch { throw new Exception();  }
+
+            var output = await _dbContext.MarketItems.Where(entitiy => entitiy.Name.Contains(term)).ToListAsync() ;
+
+          
+
+            Console.WriteLine($"Retrieved Data : {output}");
+
+            _dbContext.Dispose();
+
             return output;
         }
 

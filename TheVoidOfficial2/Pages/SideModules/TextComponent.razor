@@ -2,18 +2,20 @@
 @inject IJSRuntime JS;
 
 
-<div style="width:100%; position:relative">
 
-<label class="TerminalHead" >
+
+
+<label class="TerminalHead" id="header1">
     Void Terminal V1 <span>©</span>  
 </label>
 
-@*<button @onclick="SpeedChange" style="position:absolute; width:100px; left:20%; height:25px">@delay</button>*@
+<button @onclick="SpeedChange">Speed : @speedUI</button>
 
-<label class="TerminalHead" id="flow" style="right:0%;">
+
+<label class="TerminalHead" id="flowHead">
    Location: <span>"/"</span> -  Data Rec: <span>102 KB</span> - Data Sent: <span>102 KB</span> -   
 </label>
-</div>
+
 
 <br />
 
@@ -21,7 +23,8 @@
 
 <label id="textComp"  style="width:400px; height:400px; color:#843EE6"></label>
 
-
+<br />
+<br />
 
 
 
@@ -30,7 +33,11 @@
     [Parameter]
     public string _dialog { get; set; }
 
-    int delay = 20;
+    double speedUI = 1;
+
+    double speedMod = 1;
+
+    int delay = 50;
 
     public event EventHandler DialogFished;
 
@@ -43,13 +50,15 @@
 
     private async Task PrintText()
     {
+        await JS.InvokeVoidAsync("animationFade", "flowHead"); 
+        await JS.InvokeVoidAsync("animationFade", "header1"); 
         var currentDialog = _dialog.ToCharArray();
 
 
         for(int x = 0; x < currentDialog.Count(); x++)
         {
 
-            await Task.Delay(delay);
+            await Task.Delay((int)(delay * (speedMod)));
 
             var cChar = currentDialog[x].ToString();
             if (cChar == "<")
@@ -72,20 +81,27 @@
 
     private void SpeedChange()
     {
-        if (delay == 0)
+        if (speedMod == 0)
         {
-            delay = 100;
+            speedMod = 1;
+            speedUI = 1;
             return; 
         }
-        
-        delay = delay - 10;
+        speedUI += 0.25;
+        speedMod -= 0.25;
     }
 
 
     protected override void OnInitialized()
     {
-        
+
         PrintText();
         base.OnInitialized();
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        
+        return base.OnInitializedAsync();
     }
 }

@@ -17,11 +17,12 @@
           <label> || </label>
        <a> JOIN </a>
           <label> || </label>
-       <a> MARKET </a>
+       <a > MARKET </a>
           <label> || </label>
        <a> STREAMS </a>
     </div>
-
+    <br />
+    <br />
     </PageContent>
 </TheVoidOfficial2.Pages.SideModules.ContentPresenter>
 
@@ -30,7 +31,7 @@
     TextComponent textComponent;
     protected override async Task OnInitializedAsync()
     {
-        //textComponent.DialogFished += DialogFinished;
+        
 
         await base.OnInitializedAsync();
     }
@@ -44,9 +45,9 @@
     private void DialogFinished(object sender, EventArgs e)
     {
         
-        var x = new Action(async () => 
+        var x = new Action(async() => 
         { 
-           await JS.InvokeVoidAsync("animationFade", "nav"); 
+            await JS.InvokeVoidAsync("animationFade", "nav"); 
         });
 
         x.Invoke();
