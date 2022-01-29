@@ -1,0 +1,156 @@
+﻿@page "/market"
+
+@using Microsoft.EntityFrameworkCore;
+@using TheVoidOfficial2.Data;
+@using TheVoidOfficial2.Logic.Database;
+@using Microsoft.AspNetCore.Http;
+@using TheVoidOfficial2.Pages.SideModules;
+@using TheVoidOfficial2.Data.DataModels;
+
+@inject IDbContextFactory<ApplicationDbContext> fc;
+@inject IDatabaseManager db;
+@inject IJSRuntime JS;
+
+<TheVoidOfficial2.Pages.SideModules.ContentPresenter @ref="contentPres">
+    <pageContent1>
+    <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Welcome to the Market < <
+        "></TheVoidOfficial2.Pages.SideModules.TextComponent >
+    <div style="width:100%; color:white;">
+        <label>Search : </label>
+        <input @bind-value="textBox.value"
+               @bind-value:event="oninput"
+               type="text"
+               aria-label="placeHolder" />
+        <label>Showing Results For : @textBox.value | @currentProducts.Count Results</label>
+        
+    </div>
+    <br />
+    @for(int x = 1; x < modulePresentIndex.Length; x++)
+    {
+            <div style="display:flex; flex-flow:row;  justify-content:space-evenly; gap:4px; ">
+                @for (var i = modulePresentIndex[x-1]; i <  modulePresentIndex[x]; i++)
+                {
+                       <ProductModule Clicked="ModuleClicked" prod=currentProducts[i] ></ProductModule>
+                }
+            </div>
+            <br/>
+    }
+    <br/>
+</pageContent1>
+
+
+
+<pageContent2>
+     <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Viewing a Item  < <"  ></TheVoidOfficial2.Pages.SideModules.TextComponent >
+         <br />
+         <button @onclick="BackToMarket" >Return</button>
+         <div style="width:100%; text-align:center; font-size:20px;"> <span style="color:#3EE684">Currently Viewing :</span>  <span style="color:#843EE6">@currentlySelected.Name</span> </div>
+         <br />
+         <br />
+         <div style="border: 1px solid #3EE684; width:250px; height:250px; opacity:1; margin-left:auto; margin-right:auto;">
+
+         </div>
+</pageContent2>
+</TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+
+
+@code {
+
+    TextComponent textComponent;
+    ContentPresenter contentPres;
+    SearchBoxModel textBox = new SearchBoxModel();
+    List<MarketItem> currentProducts = new List<MarketItem>();
+
+    private  int[] modulePresentIndex = new int[0];
+
+    private int amountInRow = 6;
+
+    private MarketItem currentlySelected;
+
+    private void BackToMarket()
+    {
+        contentPres.SwitchContent(PageContentEnum.PageContent.page1);
+    }
+
+    private void ModuleClicked(MarketItem e)
+    {
+        currentlySelected = e;
+        contentPres.SwitchContent(PageContentEnum.PageContent.page2);
+    }
+
+    protected override void OnInitialized()
+    {
+
+
+        textBox = new SearchBoxModel();
+        textBox.valueUpdated += newSearch;
+        base.OnInitialized();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+
+        if (firstRender)
+        {
+            textComponent.DialogFished += DialogFinished;
+            //for (int x = 1; x < Num; x++) 
+            //{
+            //    Console.WriteLine("a");
+            //    //queue up delayed fade on client side !! to fix lag
+            //    await Task.Delay(100);
+            //    await JS.InvokeVoidAsync("animationFade", x.ToString()); 
+            //}
+        }
+    }
+
+
+
+    private async void newSearch(object sender, string e)
+    {
+        Console.WriteLine("New Search");
+        currentProducts = await db.ReturnproductsByTerm(fc.CreateDbContext(), e);
+
+        if (currentProducts.Count == 0)
+        {
+            modulePresentIndex = new int[0];
+            await InvokeAsync(() => { StateHasChanged(); });
+            return;
+        }
+
+        int rowAmount = (int)Math.Ceiling((decimal)currentProducts.Count / amountInRow);
+
+
+        modulePresentIndex = new int[rowAmount+1];
+
+
+
+        if (rowAmount == 1) { modulePresentIndex[1] = currentProducts.Count; }
+
+        else
+        {   //TODO will factorise this for project
+            var mod = currentProducts.Count % amountInRow;
+            //if (mod == 0) { modulePresentIndex[rowAmount] = amountInRow; }
+            //else { modulePresentIndex[rowAmount] = mod; }
+
+            if (mod != 0) { modulePresentIndex[rowAmount] = mod+((rowAmount-1)*(amountInRow)); }
+
+            for (var i =1; i < rowAmount; i++)
+                modulePresentIndex[i] = modulePresentIndex[i-1]+amountInRow;
+        }
+
+        modulePresentIndex.ToList().ForEach(x => Console.WriteLine(x));
+         await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    private void DialogFinished(object sender, EventArgs e)
+    {
+        
+        var x = new Action(async() => 
+        { 
+            await JS.InvokeVoidAsync("animationFade", "nav"); 
+        });
+
+       // x.Invoke();
+        Console.WriteLine("Process Completed!1");
+    }
+}

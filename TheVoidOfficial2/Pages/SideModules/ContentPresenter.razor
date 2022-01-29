@@ -1,21 +1,46 @@
 ﻿
 
-<div  class="content">
-   
- 
+<div class="content">
 
      @PageContent
-       
-            
 
 </div>
 
 
 
 @code {
-     [Parameter]
-  public RenderFragment PageContent { get; set; }
+
+    private RenderFragment PageContent { get; set; }
+    //pageContent will be displayed by defaul
+    [Parameter]
+    public RenderFragment pageContent1 { get; set; }
 
     [Parameter]
-   public RenderFragment HeaderContent { get; set; }
+    public RenderFragment pageContent2 { get; set; }
+
+    [Parameter]
+    public RenderFragment pageContent3 { get; set; }
+
+    [Parameter]
+    public RenderFragment HeaderContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        PageContent = pageContent1;
+        base.OnInitialized();
+    }
+
+    public void SwitchContent(PageContentEnum.PageContent i)
+    {
+        switch (i)
+        {
+            case PageContentEnum.PageContent.page1:
+                PageContent = pageContent1;
+                break;
+            case PageContentEnum.PageContent.page2:
+            PageContent = pageContent2;
+                break;
+        } 
+    }
+
 }

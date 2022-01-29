@@ -23,7 +23,7 @@
 
 <label id="textComp"  style="width:400px; height:400px; color:#843EE6"></label>
 
-<br />
+
 <br />
 
 
@@ -50,15 +50,15 @@
 
     private async Task PrintText()
     {
-        await JS.InvokeVoidAsync("animationFade", "flowHead"); 
-        await JS.InvokeVoidAsync("animationFade", "header1"); 
+        //await JS.InvokeVoidAsync("animationFade", "flowHead"); 
+        //await JS.InvokeVoidAsync("animationFade", "header1"); 
         var currentDialog = _dialog.ToCharArray();
 
 
         for(int x = 0; x < currentDialog.Count(); x++)
         {
 
-            await Task.Delay((int)(delay * (speedMod)));
+           await Task.Delay((int)(delay * (speedMod)));
 
             var cChar = currentDialog[x].ToString();
             if (cChar == "<")

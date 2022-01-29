@@ -1,0 +1,23 @@
+﻿@using TheVoidOfficial2.Data
+<div @onclick="onClicked" style=" border: 1px solid #3EE684; width:150px; height:250px; opacity:1; " >
+    <img style="width:125px;  display: block;
+margin-left: auto;
+margin-right: auto;" src="/productPlaceholder.png"/>
+
+
+    <label style="color:red">@prod.Name | @prod.ID</label>
+</div>
+
+@code {
+
+    [Parameter]
+    public MarketItem prod { get; set; }
+
+    [Parameter]
+    public  EventCallback<MarketItem> Clicked { get; set; }
+
+    private void onClicked() 
+    {
+        Clicked.InvokeAsync(prod);
+    }
+}

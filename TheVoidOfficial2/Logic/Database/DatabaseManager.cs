@@ -30,19 +30,13 @@ namespace TheVoidOfficial2.Logic.Database
         {
             Console.WriteLine("Awaiting DataBase | Action: Return By Term");
             //TODO this is probs shitty ass code
-           // List<MarketItem> output = null;
-            //try
-            //{
-            //    output = await _dbContext.MarketItems.Where(entitiy => entitiy.Name.IndexOf
-            //    (term, StringComparison.OrdinalIgnoreCase) >= 0).ToListAsync();
-            //}
-            //catch { throw new Exception();  }
+           
 
             var output = await _dbContext.MarketItems.Where(entitiy => entitiy.Name.Contains(term)).ToListAsync() ;
 
-          
+         
 
-            Console.WriteLine($"Retrieved Data : {output}");
+            Console.WriteLine($"Retrieved Data : {output.Count}");
 
             _dbContext.Dispose();
 
