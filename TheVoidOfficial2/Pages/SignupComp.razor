@@ -2,18 +2,26 @@
 @using TheVoidOfficial2.Data.ValidationModels;
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using TheVoidOfficial2.Logic.Database;
 @inject NavigationManager NavigationManager;
 @inject UserManager<IdentityUser> _userManager;
 @inject SignInManager<IdentityUser> _signInManager;
-
+@inject IuserSettingManager _usm
 <h3>SignUp</h3>
 
 
 <EditForm Model="_newUser" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div> USername</div>
     <InputText @bind-Value="_newUser.UserName" />
+    <div> Email</div>
+
     <InputText @bind-Value="_newUser.Email" />
+    <div> Phone</div>
+
     <InputText @bind-Value="_newUser.Phonenumber" />
+    <div> pass</div>
+
     <InputText @bind-Value="_newUser.Password" />
     <button type="submit">Submit</button>
 
@@ -22,10 +30,12 @@
     private NewUser _newUser = new NewUser();
     private async Task HandleValidSubmit()
     {
-        var newIdentity = new IdentityUser() { UserName = _newUser.UserName, Email = _newUser.Email, PhoneNumber = _newUser.Phonenumber };
+        var newIdentity = new IdentityUser() { UserName = _newUser.UserName, Email = _newUser.Email };
         var result = await _userManager.CreateAsync(newIdentity, _newUser.Password);
         if (result.Succeeded)
         {
+
+            await _usm.CreateSettingRecord(newIdentity.Id);
 
             
             // _logger.LogInformation("User created a new account with password.");
@@ -51,10 +61,10 @@
             if (await _signInManager.CanSignInAsync(newIdentity))
             {
                 await _signInManager.CheckPasswordSignInAsync(newIdentity, _newUser.Password, false);
+                NavigationManager.NavigateTo("/", forceLoad: true);
+                 }
 
             }
-            //NavigationManager.NavigateTo("/counter/", forceLoad: true);
-            // }
         }
     }
 }

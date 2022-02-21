@@ -1,0 +1,18 @@
+﻿@using TheVoidOfficial2.Data;
+
+ <div class="col" style="width:auto; height: auto; border: 1px solid transparent; position:relative; margin-top: @topOffset
+; 
+            display: flex; gap: 10px;  flex-direction: column;
+            ">
+        @for (var i = 0; i < mods.Count; i++)
+                {
+                    <div class="id" style="width:200px; height: 250px;  position: relative; ">@mods[i].ID</div>
+                }
+</div>
+@code {
+    [Parameter]
+    public string topOffset { get; set; }
+
+    [Parameter]
+    public List<MarketItem> mods { get; set; }
+}

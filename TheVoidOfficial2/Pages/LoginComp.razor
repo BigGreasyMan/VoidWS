@@ -10,9 +10,10 @@
 @inject SignInManager<IdentityUser> _signInManager
 
 <h3>Enter</h3>
-<TheVoidOfficial2.Pages.SideModules.TextComponent _name="man" _dialogs="@_dialogs"></TheVoidOfficial2.Pages.SideModules.TextComponent>
+@*<TextComponent _name="man" _dialogs="@_dialogs"></TextComponent>*@
 
 
+<button onclick=""> signOut</button>
 
 <EditForm Model="_currentUser" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -34,12 +35,14 @@
             //error = "User not found";
             return;
         }
+        //await _signInManager.SignOutAsync();
         if (await _signInManager.CanSignInAsync(usr))
         {
+            
             var result = await _signInManager.CheckPasswordSignInAsync(usr, _currentUser.Password, true);
             if (result == Microsoft.AspNetCore.Identity.SignInResult.Success)
             {
-                Guid key = Guid.NewGuid();
+               Guid key = Guid.NewGuid();
                 BlazorLoginMiddleware.BlazorCookieLoginMiddleware.Logins[key] = new BlazorLoginMiddleware.LoginInfo { Username = _currentUser.Username, Password = _currentUser.Password };
                 NavigationManager.NavigateTo($"/login?key={key}", true);
             }
@@ -47,10 +50,8 @@
             {
                 // error = "Login failed. Check your password.";
             }
-
-
-
         }
+
 
     }
     protected override Task OnInitializedAsync()

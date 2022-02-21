@@ -6,7 +6,7 @@
 
 
 <label class="TerminalHead" id="header1">
-    Void Terminal V1 <span>©</span>  
+    Void Terminal V1 <span>©</span> @User
 </label>
 
 <button @onclick="SpeedChange">Speed : @speedUI</button>
@@ -29,6 +29,8 @@
 
 
 @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
     [Parameter]
     public string _dialog { get; set; }
@@ -47,6 +49,8 @@
 
 
     private bool _isDialogActive = false;
+
+    private string User;
 
     private async Task PrintText()
     {
@@ -94,14 +98,18 @@
 
     protected override void OnInitialized()
     {
-
+        
+     
+     
         PrintText();
         base.OnInitialized();
     }
 
-    protected override Task OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
-        
-        return base.OnInitializedAsync();
+         var authState = await AuthenticationStateTask;
+      
+         User = authState.User.Identity.Name;
+      
     }
 }

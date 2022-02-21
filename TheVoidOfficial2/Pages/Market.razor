@@ -4,17 +4,17 @@
 @using TheVoidOfficial2.Data;
 @using TheVoidOfficial2.Logic.Database;
 @using Microsoft.AspNetCore.Http;
-@using TheVoidOfficial2.Pages.SideModules;
+@using TheVoidOfficial2.Visual.Modules;
 @using TheVoidOfficial2.Data.DataModels;
 
 @inject IDbContextFactory<ApplicationDbContext> fc;
 @inject IDatabaseManager db;
 @inject IJSRuntime JS;
 
-<TheVoidOfficial2.Pages.SideModules.ContentPresenter @ref="contentPres">
+<ContentPresenter @ref="contentPres">
     <pageContent1>
-    <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Welcome to the Market < <
-        "></TheVoidOfficial2.Pages.SideModules.TextComponent >
+    <TextComponent @ref="textComponent" _dialog="Welcome to the Market < <
+        "></TextComponent >
     <div style="width:100%; color:white;">
         <label>Search : </label>
         <input @bind-value="textBox.value"
@@ -41,7 +41,7 @@
 
 
 <pageContent2>
-     <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Viewing a Item  < <"  ></TheVoidOfficial2.Pages.SideModules.TextComponent >
+     <TextComponent @ref="textComponent" _dialog="Viewing a Item  < <"  ></TextComponent >
          <br />
          <button @onclick="BackToMarket" >Return</button>
          <div style="width:100%; text-align:center; font-size:20px;"> <span style="color:#3EE684">Currently Viewing :</span>  <span style="color:#843EE6">@currentlySelected.Name</span> </div>
@@ -51,7 +51,7 @@
 
          </div>
 </pageContent2>
-</TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+</ContentPresenter>
 
 
 @code {

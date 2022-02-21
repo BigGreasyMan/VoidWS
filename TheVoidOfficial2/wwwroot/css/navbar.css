@@ -152,8 +152,14 @@ a:active { text-decoration: none; }
 
 
 
+/*---------------------------------Stream------------------------------------*/
+.id:nth-child(even) {
+	border: 1px solid #843EE6;
+}
 
-
+.id:nth-child(odd) {
+	border: 1px solid #3EE684;
+}
 
 
 

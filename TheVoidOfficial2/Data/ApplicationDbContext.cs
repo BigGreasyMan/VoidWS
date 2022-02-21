@@ -14,7 +14,7 @@ namespace TheVoidOfficial2.Data
         }
 
         public DbSet<MarketItem> MarketItems { get; set; }
-        
 
+        public DbSet<UserSettings> UserPreferences { get; set; }
     }
 }

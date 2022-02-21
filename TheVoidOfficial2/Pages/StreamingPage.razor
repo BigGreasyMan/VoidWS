@@ -1,0 +1,104 @@
+﻿@page "/stream"
+@using Microsoft.EntityFrameworkCore;
+@using TheVoidOfficial2.Data;
+@using TheVoidOfficial2.Logic.Database;
+@using Microsoft.AspNetCore.Http;
+
+
+
+@inject IDbContextFactory<ApplicationDbContext> fc;
+@inject IDatabaseManager db;
+@inject IJSRuntime JS;
+
+<ContentPresenter @ref="contentPres">
+    <pageContent1>
+        <TextComponent  @ref="textComponent"  _dialog="Welcome to the Stream Page < <">
+            
+
+        </TextComponent>
+
+
+         <div style="width:100%; color:white;">
+            <label>Search : </label>
+                <input @bind-value="textBox.value"
+                       @bind-value:event="oninput"
+                       type="text"
+                       aria-label="placeHolder" />
+                <label>Showing Results For : @textBox.value | </label>
+         </div>
+
+         <br />
+
+         <div style="border-color: black;    border: 1px solid transparent;
+    display: flex;  height:calc(100%+60px); justify-content:center; gap:10px;
+    ">
+         <FlowColumn topOffset="0px" mods="@streams[0]"></FlowColumn>
+         <FlowColumn topOffset="20px" mods="@streams[1]"></FlowColumn>
+         <FlowColumn topOffset="40px" mods="@streams[2]"></FlowColumn>
+         <FlowColumn topOffset="60px" mods="@streams[3]"></FlowColumn>
+        </div>
+         <br />
+         <br />
+
+    </pageContent1>
+</ContentPresenter>
+
+
+@code {
+    TextComponent textComponent;
+    ContentPresenter contentPres;
+    SearchBoxModel textBox = new SearchBoxModel();
+
+    List<List<MarketItem>> streams = new List<List<MarketItem>>() {  new List<MarketItem>() , new List<MarketItem>(), new List<MarketItem>(),new List<MarketItem>()};
+
+    protected override void OnInitialized()
+    {
+
+
+        textBox = new SearchBoxModel();
+        textBox.valueUpdated += newSearch;
+        base.OnInitialized();
+    }
+
+
+    private async void newSearch(object sender, string e)
+    {
+        Console.WriteLine("New Search");
+        var currentStreams = await db.ReturnproductsByTerm(fc.CreateDbContext(), e);
+
+
+        // {1 , 2, 4 , 5 , 1 , 4 , 4}
+
+        List<MarketItem> splitData = new List<MarketItem>();
+        streams = new List<List<MarketItem>>() {  new List<MarketItem>() , new List<MarketItem>(), new List<MarketItem>(),new List<MarketItem>()};
+        for (var i = 0; i < currentStreams.Count; i++)
+        {
+
+            splitData.Add(currentStreams[i]);
+
+            if (splitData.Count == 4) 
+            {
+                streams[0].Add(splitData[0]);
+                streams[1].Add(splitData[1]);
+                streams[2].Add(splitData[2]);
+                streams[3].Add(splitData[3]);
+
+                splitData = new List<MarketItem>();
+
+            }
+            if (i == currentStreams.Count-1) 
+            { 
+                for (var x = 0; x < splitData.Count; x++)
+                {
+                     streams[x].Add(splitData[x]);
+                }
+                
+            
+            }
+        }
+
+            streams.ForEach(x => Console.WriteLine(x.Count));
+            Console.WriteLine(streams.Count);
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+}

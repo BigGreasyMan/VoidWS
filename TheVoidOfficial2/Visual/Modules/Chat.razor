@@ -1,0 +1,149 @@
+﻿@page "/chat"
+@page "/chat/{_streamID:int}"
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.SignalR.Client;
+@using System.ComponentModel
+@using Microsoft.AspNetCore.Identity
+@using TheVoidOfficial2.Logic.Database
+@using TheVoidOfficial2.Logic.Middleware
+@using TheVoidOfficial2.Logic;
+@using TheVoidOfficial2.Logic.Commuication;
+@inject NavigationManager _navigationManager
+@inject AuthenticationStateProvider _state
+@inject UserManager<IdentityUser> _userManager
+@inject IHttpContextAccessor httpContextAccessor;
+@inject ICookie cookie;
+@inject IJSRuntime JS;
+@inject IuserSettingManager _usm
+@implements IDisposable;
+
+<h3>Chat</h3>
+
+<label>@_error</label>
+<input @bind-value="_sendValue"
+            @bind-value:event="oninput">
+
+<button  onclick="@(async() =>{await ButtonClicked();})" >Send</button>
+
+@for (var i = 0; i < _messages.Count; i++)
+{
+    <div style="color:red">@_messages[i]</div>
+}
+@code {
+    //TODO make authen cascading
+    [Parameter]
+    public int _streamID { get; set; } = 0;
+
+    HubConnection _hubConnection;
+
+    List<string> _messages = new List<string>();
+
+    bool _sentDisabled = true;
+
+    string _sendValue = "";
+
+    string _error = "everything is fine";
+
+    string _hubUrl;
+
+    string _userName = "";
+
+    string _userId = "";
+
+    protected async override Task OnInitializedAsync()
+    {
+
+
+        var temp = httpContextAccessor;
+        var user = await _state.GetAuthenticationStateAsync();
+        //TODO this will kill somthing
+        _userId = user.User.Claims.First().Value;
+
+        if (user.User.Identity.IsAuthenticated) 
+        { 
+            _sentDisabled = false; _userName = user.User.Identity.Name;
+
+        }
+    }
+
+    Task ButtonClicked()
+    {
+        if (_sentDisabled) { _error = "use need to make an account before typing"; return new Task(null); }
+        else
+            return SendMessage();
+    }
+
+
+
+
+
+    public void Dispose()
+    {
+        _hubConnection.InvokeAsync("LeaveRoom",_streamID,_userName);
+    }
+
+    protected async override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            var cookieData = await cookie.GetCookie("pref");
+
+            if (cookieData == null)
+            {
+                var setting = await _usm.GetSetting(_userId);
+                await cookie.Create("pref", setting.textColor, 1);
+            }
+            else
+            {
+            cookieData = cookieData.Split(";")[0];
+                
+            }
+
+            if (_streamID != 0 )
+                {
+            
+                    string baseUrl = _navigationManager.BaseUri;
+                    _hubUrl = baseUrl.TrimEnd('/') + GlobalChatHub.HubUrl;
+                    //rooms?
+                    Console.WriteLine("Connection Made at room:" + _streamID);
+                    _hubConnection = new HubConnectionBuilder()
+                        .WithUrl(_hubUrl)
+                        .Build();
+
+                    _hubConnection.On<string, string>("ClientRec", ClientRec);
+
+                    await _hubConnection.StartAsync().ConfigureAwait(true);
+
+                    await _hubConnection.SendAsync("JoinRoom", _streamID.ToString(),_userName);
+                    _messages.Add(_userName + "|" + "had joined the room");
+                        StateHasChanged();
+                }
+                else
+                {
+
+                    _error = "you need to pass a streamID in url";
+                    StateHasChanged();
+                }
+        }
+    }
+
+
+    private async void ClientRec(string message,string name)
+    {
+        _messages.Add(name + "|" + message);
+        //TODO maybe improve
+
+       await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    private  Task SendMessage()
+    {
+        //because of return we cannot factorise
+        if (_sendValue.Length == 0) { return new Task(null); }
+        _messages.Add(_userName + "|" + _sendValue);
+         StateHasChanged();
+        return _hubConnection.SendAsync("Broadcast", _streamID.ToString(),_sendValue,_userName);
+    }
+
+}

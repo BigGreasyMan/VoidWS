@@ -1,12 +1,14 @@
 ﻿@page "/"
 @using TheVoidOfficial2.Logic.Database;
-@using TheVoidOfficial2.Pages.SideModules;
+@using TheVoidOfficial2.Visual.Modules;
 @inject IJSRuntime JS;
-<TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+@*@inject AuthenticationStateProvider _state*@
+
+<ContentPresenter>
     <pageContent1>
-        <TheVoidOfficial2.Pages.SideModules.TextComponent @ref="textComponent" _dialog="Welcome to the void..... << Proceed to one of the following options, " >
+        <TextComponent @ref="textComponent" _dialog="@_dialog" >
     
-        </TheVoidOfficial2.Pages.SideModules.TextComponent>
+        </TextComponent>
 
         <br />
         <br />
@@ -24,14 +26,23 @@
     <br />
     <br />
     </pageContent1>
-</TheVoidOfficial2.Pages.SideModules.ContentPresenter>
+</ContentPresenter>
 
 @code
 {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    string _dialog = "Welcome to the void..... << Proceed to one of the following options,";
+
     TextComponent textComponent;
+
     protected override async Task OnInitializedAsync()
     {
-        
+        var authState = await AuthenticationStateTask;
+        // var user = await _state.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated) { _dialog = $"Welcome back to the void,{user.Identity.Name}  << Enjoy :),"; }
 
         await base.OnInitializedAsync();
     }

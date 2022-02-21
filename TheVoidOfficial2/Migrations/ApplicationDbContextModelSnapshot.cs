@@ -238,6 +238,19 @@ namespace TheVoidOfficial2.Migrations
                     b.ToTable("MarketItems");
                 });
 
+            modelBuilder.Entity("TheVoidOfficial2.Data.UserSetting", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("textColor")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserPreferences");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

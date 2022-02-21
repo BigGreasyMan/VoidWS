@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -15,9 +16,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheVoidOfficial2.Areas.Identity;
 using TheVoidOfficial2.Data;
+using TheVoidOfficial2.Logic;
+using TheVoidOfficial2.Logic.Commuication;
 using TheVoidOfficial2.Logic.Database;
+using TheVoidOfficial2.Logic.Identity;
 using TheVoidOfficial2.Logic.Middleware;
-using static TheVoidOfficial2.Logic.Middleware.BlazorLoginMiddleware;
 
 namespace TheVoidOfficial2
 {
@@ -47,19 +50,29 @@ namespace TheVoidOfficial2
                 p.GetRequiredService<IDbContextFactory<ApplicationDbContext>>()
                 .CreateDbContext());
 
-            //services.AddDbContext<MarketDBContext>(options =>
-            // options.UseSqlite(
-            //  Configuration.GetConnectionString("DefaultConnection")));
+       
 
-            services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false;})
+           
+           services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false;})
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpContextAccessor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddSingleton<WeatherForecastService>();
-            services.AddTransient<IDatabaseManager, DatabaseManager>();
+
+            //- - - - - - - - [SCOPED] - - - - - - - - //
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddScoped<IDatabaseManager, DatabaseManager>();
+            services.AddScoped<ICookie, Cookie>();
+            services.AddScoped<IuserSettingManager, userSettingManager>();
+            //- - - - - - - - - - - - - - - - - - - - //
+
+
+            //services.AddSingleton<IClaimsTransformation, ClaimsTransformation>();
+
+            //services.AddTransient<IUserClaimsPrincipalFactory<IdentityUser>, ClaimsFactory>(); // for adding to indentity cookie
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +105,7 @@ namespace TheVoidOfficial2
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapHub<GlobalChatHub>(GlobalChatHub.HubUrl);
             });
         }
     }
