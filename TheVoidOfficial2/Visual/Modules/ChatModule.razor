@@ -1,0 +1,109 @@
+﻿@page "/ChatMod"
+@inject IJSRuntime JS;
+
+
+
+
+    <div style="width: 100%; height: 100%; position:absolute;">
+
+    <div class="BaseContainer">
+    
+        <div class="VideoContainer">
+
+            <hr class="LineHorizontal" style=" width: 98%; ">
+    
+            <hr class="LineVertical" style="position: absolute; margin-top: 2px; height: 45%; right: 0%;">
+            <!-- position: absolute; border: 0px; border-left:1px solid red; height: 100%; right: 0%;  -->
+          
+                <div  style="margin: 10px;"> 
+
+                     <video  style="width: 100%; position: relative; z-index: 0; "
+                    id="my-player"
+                    class="video-js"
+                    controls
+                    preload="auto"
+                    data-setup='{}'>
+                 
+                    <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    supports HTML5 video
+                    </p>
+                    </video>
+                </div>
+    
+                
+                <label class="StreamStats">Watching  → <span style="color:#3EE684">1091</span></label>
+                <label class="StreamStats" style="float: right;"><span style="color:#3EE684">StreamName</span> Actually Trash Gameplay, dont watch me please, please do |</label>
+                <div class="StreamStats">Uptime  → <span style="color:#3EE684">1:23:2</span></div>
+        </div>
+    
+    
+    
+        <div  class="ChatSection">
+            <div  id="ChatContainer"  class="ChatContainer" style=" height: 100%; ">
+                <div id="StatsButton" style="position: absolute; right: 0%;">Stats</div>
+                <div>
+                    <label style="font-style: italic; color: white; font-size: 22px;">Chat</label>
+                   
+    
+                    <hr class="LineHorizontal" style="margin-top: 0%; margin-bottom: 1px; ">
+
+                    
+                </div>
+                        
+                <div  style="display: flex; flex-grow: 2;   flex-direction: column; height: 100%; overflow-y: hidden;">
+
+                    <div id="StatsPannel" style="margin-top: 0%; position: absolute; top: -3%;" >
+                        <div style="display: inline-block; margin-bottom: 4px;">
+                            TotalMessages : 1000
+                        </div>
+                        <span> | </span>
+                        <div style="display: inline-block;">
+                            MessagesPS : 1000
+                        </div>
+                    </div>
+
+                    
+                    <div id="MessageContainer" class="MessageContainer" style="color: white;  flex-grow: 1; ">
+                        <div class="Message"> <span >Username </span>→ <span > message</span></div>
+                    </div> 
+
+                    <div class="BottomChat"  >
+                        <hr class="LineHorizontal" style="margin-top: 0%; ">
+                        <div id="MaxCharMessage" style="position: absolute; opacity: 0;">
+                                You have hit the MaxCharCount !!
+                            </div>
+                            <div id="InputContainer"  style="border: 1px solid #843EE6; border-radius: 3px; position: relative; display: flex;">
+                                <textarea  id="InputBox" placeholder="Type a Message" maxlength="100" style="margin: 0%; padding: 0%; border: 0px; font-family: 'Times New Roman', Times, serif;  width: 100%; font-size: 20px;  color: white; resize: none;   background-color: transparent; ">
+                                </textarea>
+                            </div>
+                            <div style="font-size: 25px; font-style: italic; color: white;  position: relative; display: flex; justify-content: flex-end; gap: 5px;" >
+                                <div style="display: inline;">
+                                        Send
+                                </div>
+                                <img  src="/SettingsCog.svg" style="width: 20px; ">
+                        </div>
+                    </div>
+
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    //string myMarkup = "<source src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' type='video/mp4'> a </source>";
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("OnStreamingPageLoad");
+        }
+    }
+
+  
+}

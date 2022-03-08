@@ -64,7 +64,7 @@ namespace TheVoidOfficial2
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<IDatabaseManager, DatabaseManager>();
             services.AddScoped<ICookie, Cookie>();
-            services.AddScoped<IuserSettingManager, userSettingManager>();
+            services.AddScoped<IUserSettingManager, UserSettingManager>();
             //- - - - - - - - - - - - - - - - - - - - //
 
 

@@ -2,11 +2,29 @@
 
  <div class="col" style="width:auto; height: auto; border: 1px solid transparent; position:relative; margin-top: @topOffset
 ; 
-            display: flex; gap: 10px;  flex-direction: column;
+      display: flex; gap: 10px;  flex-direction: column;
             ">
         @for (var i = 0; i < mods.Count; i++)
                 {
-                    <div class="id" style="width:200px; height: 250px;  position: relative; ">@mods[i].ID</div>
+                    <div style="width: 300px; height: 200px; position: relative;">
+                         <div style="position: absolute; border-left: 1px solid #3EE684; height: 80%;"></div>
+                           <div style="margin-left: 10px;">
+
+                               <div style="color:#3EE684; font-size: 20px;">Joe <span style="color:#990a0a">isLive</span> → 200000 <span style="color:#843EE6">Viewers</span></div>
+                                 <div style="word-break: normal; color:white">
+                                        Rebuilding the lets play house again guys,sorry @mods[i].ID <span style="color: #843EE6;">|</span>
+        
+                            </div>
+                              <img src="/live_user_xqcow-440x248.jpg" style=" max-width: 100%">
+                           </div>
+                    </div>
+
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
                 }
 </div>
 @code {

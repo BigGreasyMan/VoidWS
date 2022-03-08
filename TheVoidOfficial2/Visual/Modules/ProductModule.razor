@@ -1,5 +1,5 @@
 ﻿@using TheVoidOfficial2.Data
-<div @onclick="onClicked" style=" border: 1px solid #3EE684; width:150px; height:250px; opacity:1; " >
+@*<div @onclick="onClicked" style=" border: 1px solid #3EE684; width:150px; height:250px; opacity:1; " >
     <img style="width:125px;  display: block;
 margin-left: auto;
 margin-right: auto;" src="/productPlaceholder.png"/>
@@ -7,6 +7,84 @@ margin-right: auto;" src="/productPlaceholder.png"/>
 
     <label style="color:red">@prod.Name | @prod.ID</label>
 </div>
+*@
+@*this is dogshit , but WORKS*@
+
+@if(SkipRender)
+{
+     <div class="BaseProductModule" @onclick="onClicked" style="width: 260px; height: 200px; position: relative;">
+            <div class="ModuleSideBarOn">
+            </div>
+            <div id="InstaLoad" >
+                <div style="margin-left: 10px; color:#3EE684;">
+                    <div  style="font-size: 20px; font-style: italic; color:#843EE6; ">@prod.Name</div>
+                    <div  style="color:white; word-wrap: break-word; ">
+                        A greate qaulity skull from your neighbour
+                    </div>
+                    <div  style="text-align: right; position: absolute; width: 100%; color: white; font-style: italic;">
+                        <div  style="display: inline-block; ">Price : <span  style="color:#3EE684;  "> @prod.Price </span></div>
+                 
+                        <div  style=" margin-top: 4px;">QTY : <span   style="color:#3EE684;"> @prod.Qty </span></div>
+                    </div>
+                    <img src="/productPlaceholder.png"  style="width:150px; " alt="">
+                </div>
+            </div>
+    </div>
+}
+else
+{
+    
+    @if (Row >= 4)
+    {
+    
+        <div class="BaseProductModule" @onclick="onClicked" style="width: 260px; height: 200px; position: relative;">
+                <div class="ModuleSideBarOn">
+                </div>
+                <div id="InstaLoad"  style="opacity :0;">
+                    <div style="margin-left: 10px; color:#3EE684;">
+                        <div  style="font-size: 20px; font-style: italic; color:#843EE6; ">@prod.Name</div>
+                        <div  style="color:white; word-wrap: break-word; ">
+                            A greate qaulity skull from your neighbour
+                        </div>
+                        <div  style="text-align: right; position: absolute; width: 100%; color: white; font-style: italic;">
+                            <div  style="display: inline-block; ">Price : <span  style="color:#3EE684; opacity:0; "> @prod.Price </span></div>
+                 
+                            <div  style=" margin-top: 4px;">QTY : <span   style="color:#3EE684; opacity:0;"> @prod.Qty </span></div>
+                        </div>
+                        <img src="/productPlaceholder.png"  style="width:150px; " alt="">
+                    </div>
+                </div>
+        </div>
+
+    }
+    else
+    {
+    
+         <div class="BaseProductModule"  @onclick="onClicked" style="width: 260px; height: 200px; position: relative;">
+            <div id="amin" class="ModuleSideBar" >
+            </div >
+            <div class="InnerWraps" >
+
+                <div style="margin-left: 10px; color:#3EE684;">
+                    <div id="Flick" style="font-size: 20px; font-style: italic; color:#843EE6; opacity:0;">@prod.Name</div>
+                    <div id="FinalFade"  style="color:white; word-wrap: break-word; opacity:0;">
+                        A greate qaulity skull from your neighbour
+                    </div>
+                    <div  style="text-align: right; position: absolute; width: 100%; color: white; font-style: italic;">
+                        <div id="Flick" style="opacity:0; display: inline-block; ">Price : <span id="Flick" style="color:#3EE684; opacity:0; "> @prod.Price </span></div>
+                 
+                        <div id="Flick" style="opacity:0; margin-top: 4px;">QTY : <span  id="Flick" style="color:#3EE684; opacity:0;"> @prod.Qty </span></div>
+                    </div>
+                    <img id="Flick" src="/productPlaceholder.png"  style="width:150px; opacity:0;" alt="">
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+
 
 @code {
 
@@ -14,10 +92,23 @@ margin-right: auto;" src="/productPlaceholder.png"/>
     public MarketItem prod { get; set; }
 
     [Parameter]
+    public int Row { get; set; }
+
+    [Parameter]
+    public bool SkipRender { get; set; }
+
+    [Parameter]
     public  EventCallback<MarketItem> Clicked { get; set; }
 
     private void onClicked() 
     {
         Clicked.InvokeAsync(prod);
+    }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Created Row:" + Row);
+
+        base.OnInitialized();
     }
 }

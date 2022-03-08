@@ -51,6 +51,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcQ2hhdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Modules/ChatModule.razor]
+build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcQ2hhdE1vZHVsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Modules/ColumDataFlow.razor]
+build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcQ29sdW1EYXRhRmxvdy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Modules/ContentPresenter.razor]
 build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcQ29udGVudFByZXNlbnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -67,8 +75,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcUHJvZHVjdE1vZHVsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Modules/TextComponent.razor]
-build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcVGV4dENvbXBvbmVudC5yYXpvcg==
+[C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Modules/Terminal.razor]
+build_metadata.AdditionalFiles.TargetPath = VmlzdWFsXE1vZHVsZXNcVGVybWluYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/paulv/OneDrive/Desktop/Void/TheVoidOfficial2/Visual/Redundant/MarketComp.razor]

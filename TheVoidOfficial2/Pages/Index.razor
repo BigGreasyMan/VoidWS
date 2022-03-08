@@ -2,30 +2,26 @@
 @using TheVoidOfficial2.Logic.Database;
 @using TheVoidOfficial2.Visual.Modules;
 @inject IJSRuntime JS;
-@*@inject AuthenticationStateProvider _state*@
 
 <ContentPresenter>
-    <pageContent1>
-        <TextComponent @ref="textComponent" _dialog="@_dialog" >
-    
-        </TextComponent>
+    <Page>
+        <Terminal @ref="Terminal" _dialog="@CurrentDialog" ></Terminal>
+        <br />
+        <br />
+        <div style="display:flex; flex-direction:row; justify-content:space-around; width:100%;">
+            <ColumDataFlow @ref="Flow2" Name="NewTabs" Title="News" Data=@NewsData>
 
+            </ColumDataFlow>
+
+             <ColumDataFlow @ref="Flow1" Name="StreamTab" Title="Streams" Data=@StreamData>
+
+            </ColumDataFlow>
+
+        </div>
+
+          <br />
         <br />
-        <br />
-        <br />
-        <br />
-    <div id="nav" style="opacity:0" class="Nav">
-       <a> LOGIN </a>
-          <label> || </label>
-       <a> JOIN </a>
-          <label> || </label>
-       <a > MARKET </a>
-          <label> || </label>
-       <a> STREAMS </a>
-    </div>
-    <br />
-    <br />
-    </pageContent1>
+    </Page>
 </ContentPresenter>
 
 @code
@@ -33,39 +29,79 @@
     [CascadingParameter]
     public Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
-    string _dialog = "Welcome to the void..... << Proceed to one of the following options,";
+    Terminal Terminal;
 
-    TextComponent textComponent;
+    ColumDataFlow Flow1;
+
+    ColumDataFlow Flow2;
+    // @"Welcome to the void..... << You are not currently logged in, Click on page selector and login "
+    string[] Dialogs = new string[2] 
+        { @"Welcome to the void..... << You are not currently logged in, Click on page selector and login"
+        , "Welcome back to the void, {0}  << Enjoy :)," 
+        };
+
+    List<ColumnDataFlowModel> NewsData = new List<ColumnDataFlowModel>()
+    {
+        new ColumnDataFlowModel()
+        { Date = "15th May 1991  →",Content="Website REWORK inbound "  },
+        new ColumnDataFlowModel()
+        { Date = "15th May 1991 →",Content="liate, first streaming to hit 20000 followers" },
+          new ColumnDataFlowModel()
+        { Date = "15th May 1991 →",Content="Major site update inbound" },
+            new ColumnDataFlowModel()
+        { Date = "15th May 1991 →",Content="Major site update inbound" },
+            new ColumnDataFlowModel()
+        { Date = "15th May 1991 →",Content="Major site update inbound" },
+            new ColumnDataFlowModel()
+        { Date = "15th May 1991 →",Content="Major site update inbound" }
+    };
+    /*#843EE6 Purple*/
+    /*#3EE684 Green*/
+    //990a0a RED
+    List<ColumnDataFlowModel> StreamData = new List<ColumnDataFlowModel>() 
+    {
+        new ColumnDataFlowModel()
+        { Date = @"<span style=""color:#3EE684"">Joe</span>  <span style=""color:#990a0a"">isLive</span> → 200000 <span style=""color:#843EE6"">Viewers</span>",Content="Rebuilding the lets play house again guys ,sorry" },
+         new ColumnDataFlowModel()
+        { Date = @"<span style=""color:#3EE684"">Paulv81</span>  <span style=""color:#990a0a"">isLive</span> → 100000 <span style=""color:#843EE6"">Viewers</span>",Content="Again boys, we are back GAMING WARLORD LEGEND" },
+            new ColumnDataFlowModel()
+        { Date = @"<span style=""color:#3EE684"">Joe</span>  <span style=""color:#990a0a"">isLive</span> → 200000 <span style=""color:#843EE6"">Viewers</span>",Content="Rebuilding the lets play house again guys ,sorry" },
+         new ColumnDataFlowModel()
+        { Date = @"<span style=""color:#3EE684"">Paulv81</span>  <span style=""color:#990a0a"">isLive</span> → 100000 <span style=""color:#843EE6"">Viewers</span>",Content="Again boys, we are back GAMING WARLORD LEGEND" },
+    };
+
+    string CurrentDialog;
+
 
     protected override async Task OnInitializedAsync()
     {
+        CurrentDialog =  Dialogs[0];
+
         var authState = await AuthenticationStateTask;
-        // var user = await _state.GetAuthenticationStateAsync();
         var user = authState.User;
-        if (user.Identity.IsAuthenticated) { _dialog = $"Welcome back to the void,{user.Identity.Name}  << Enjoy :),"; }
+
+        if (user.Identity.IsAuthenticated)
+        { CurrentDialog = string.Format(Dialogs[1], user.Identity.Name); }
 
         await base.OnInitializedAsync();
     }
 
+
     protected override void OnAfterRender(bool firstRender)
     {
-        textComponent.DialogFished += DialogFinished;
+        Terminal.DialogFished += DialogFinished;
+
         base.OnAfterRender(firstRender);
     }
 
-    private void DialogFinished(object sender, EventArgs e)
+
+    private async void DialogFinished(object sender, EventArgs e)
     {
-        
-        var x = new Action(async() => 
-        { 
-            await JS.InvokeVoidAsync("animationFade", "nav"); 
-        });
-
-        x.Invoke();
-
-        
-        Console.WriteLine("Process Completed!1");
+        Flow1.Load();
+         Flow2.Load();
+        //await JS.InvokeVoidAsync("animationFade", "header1"); 
     }
 
 }
+
     

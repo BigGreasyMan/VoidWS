@@ -11,41 +11,40 @@
 @inject IJSRuntime JS;
 
 <ContentPresenter @ref="contentPres">
-    <pageContent1>
-        <TextComponent  @ref="textComponent"  _dialog="Welcome to the Stream Page < <">
+    <Page>
+        <Terminal  @ref="Terminal"  _dialog="You have laneded on the Streaming Page < < ">
             
 
-        </TextComponent>
+        </Terminal>
 
 
          <div style="width:100%; color:white;">
             <label>Search : </label>
-                <input @bind-value="textBox.value"
+                <input class="InputBox"   @bind-value="textBox.value"
                        @bind-value:event="oninput"
                        type="text"
                        aria-label="placeHolder" />
-                <label>Showing Results For : @textBox.value | </label>
+                <div style="margin-top:5px; font-style:italic; font-size:12px;" >Showing Results For : @textBox.value</div>
          </div>
 
-         <br />
+         
 
          <div style="border-color: black;    border: 1px solid transparent;
-    display: flex;  height:calc(100%+60px); justify-content:center; gap:10px;
+    display: flex;  height:calc(100%+60px); justify-content:space-between; gap:10px;
     ">
          <FlowColumn topOffset="0px" mods="@streams[0]"></FlowColumn>
          <FlowColumn topOffset="20px" mods="@streams[1]"></FlowColumn>
          <FlowColumn topOffset="40px" mods="@streams[2]"></FlowColumn>
-         <FlowColumn topOffset="60px" mods="@streams[3]"></FlowColumn>
         </div>
          <br />
          <br />
 
-    </pageContent1>
+    </Page>
 </ContentPresenter>
 
 
 @code {
-    TextComponent textComponent;
+    Terminal Terminal;
     ContentPresenter contentPres;
     SearchBoxModel textBox = new SearchBoxModel();
 
@@ -76,12 +75,12 @@
 
             splitData.Add(currentStreams[i]);
 
-            if (splitData.Count == 4) 
+            if (splitData.Count == 3) 
             {
                 streams[0].Add(splitData[0]);
                 streams[1].Add(splitData[1]);
                 streams[2].Add(splitData[2]);
-                streams[3].Add(splitData[3]);
+                //streams[3].Add(splitData[3]);
 
                 splitData = new List<MarketItem>();
 

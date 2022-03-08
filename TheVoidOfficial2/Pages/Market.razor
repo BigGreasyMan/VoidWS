@@ -12,58 +12,110 @@
 @inject IJSRuntime JS;
 
 <ContentPresenter @ref="contentPres">
-    <pageContent1>
-    <TextComponent @ref="textComponent" _dialog="Welcome to the Market < <
-        "></TextComponent >
+    <Page>
+    <Terminal @ref="Terminal" _dialog="Welcome to the Market < <
+        "></Terminal >
     <div style="width:100%; color:white;">
         <label>Search : </label>
-        <input @bind-value="textBox.value"
+        <input class="InputBox"  @bind-value="textBox.value"
                @bind-value:event="oninput"
                type="text"
                aria-label="placeHolder" />
-        <label>Showing Results For : @textBox.value | @currentProducts.Count Results</label>
+        <div style="margin-top:5px; font-style:italic; font-size:12px;" >Showing Results For : @textBox.value | @currentProducts.Count Results</div>
         
     </div>
     <br />
-    @for(int x = 1; x < modulePresentIndex.Length; x++)
-    {
-            <div style="display:flex; flex-flow:row;  justify-content:space-evenly; gap:4px; ">
-                @for (var i = modulePresentIndex[x-1]; i <  modulePresentIndex[x]; i++)
-                {
-                       <ProductModule Clicked="ModuleClicked" prod=currentProducts[i] ></ProductModule>
-                }
-            </div>
-            <br/>
-    }
+    
+        @for(int x = 1; x < modulePresentIndex.Length; x++)
+        {
+                <div  style="display:flex; flex-flow:row;  justify-content:space-evenly; gap:4px; ">
+                    @for (var i = modulePresentIndex[x-1]; i <  modulePresentIndex[x]; i++)
+                    {
+                           <ProductModule SkipRender=@SkipRender Row=@x  Clicked="ModuleClicked" prod=currentProducts[i] ></ProductModule>
+                   
+            
+                    }
+                </div>
+                <br/>
+        }
+
     <br/>
-</pageContent1>
+</Page>
 
 
 
-<pageContent2>
-     <TextComponent @ref="textComponent" _dialog="Viewing a Item  < <"  ></TextComponent >
+<Page1>
+     <Terminal @ref="Terminal" _dialog="Viewing a Item  < <"  ></Terminal >
          <br />
-         <button @onclick="BackToMarket" >Return</button>
+
+
+         <div style="display: flex; justify-content:center">
+               <div style="display: flex; flex-direction: row; width: 500px;  height: 600px;  ">
+
+                <div >
+                    <div style=" display: table; color:white; position: relative;    height: 60%; border-right:1px solid #843EE6; flex: 1;">
+                        <div style="position: absolute; right: 0%; margin-right: 4px; font-size: 30px;" @onclick="BackToMarket">Back</div>
+                        <div style="display: table-cell; vertical-align: bottom;  ">
+                            <div style="margin-right:10px;">
+                                <div style="font-style: italic; display: inline; float:right; color:white;  font-size: 30px;">QTY : <span style="color:#843EE6 ;">1/123</span></div>
+                                <div style="text-align: right;  font-size: 50px; color:#3EE684; font-style: italic;">→ BUY</div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div style="margin-left: 20px;  color:white; height: 100%; flex: 1 ; ">
+                    <label style="font-style: italic;   color:#3EE684; font-size:40px; margin: 0%;">Skull</label>
+                    <div style=" text-align: right; float: right;">
+                        <div style="font-size:25px; font-style: italic;">Price :<span style="color:#3EE684">$12111</span></div>
+                        <div style="font-size:25px; font-style: italic;">QTY :  <span style="color:#3EE684">12312</span></div>
+                    </div>
+                    <br>
+                    <br>
+                    <div style="display: inline-block;  word-break: normal;   width: 100%; font-size: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia unde reiciendis soluta cupiditate fugit atque.</div>
+                    <br/>
+                    <br/>
+
+                    <img style=" width: 300px;" src="/productPlaceholder.png">
+                    <br />
+                </div>
+
+            </div>
+
+         </div>
+         <br /><br />
+         <br />
+         <br />
+         <br />
+         <br />
+         @*<button @onclick="BackToMarket" >Return</button>
          <div style="width:100%; text-align:center; font-size:20px;"> <span style="color:#3EE684">Currently Viewing :</span>  <span style="color:#843EE6">@currentlySelected.Name</span> </div>
          <br />
          <br />
          <div style="border: 1px solid #3EE684; width:250px; height:250px; opacity:1; margin-left:auto; margin-right:auto;">
 
-         </div>
-</pageContent2>
+         </div>*@
+</Page1>
 </ContentPresenter>
 
 
 @code {
 
-    TextComponent textComponent;
+    Terminal Terminal;
     ContentPresenter contentPres;
     SearchBoxModel textBox = new SearchBoxModel();
     List<MarketItem> currentProducts = new List<MarketItem>();
 
+    private bool SkipRender = false;
+
+    private int id = 0;
+
     private  int[] modulePresentIndex = new int[0];
 
-    private int amountInRow = 6;
+    private int amountInRow = 3;
 
     private MarketItem currentlySelected;
 
@@ -74,8 +126,10 @@
 
     private void ModuleClicked(MarketItem e)
     {
+        SkipRender = true;
         currentlySelected = e;
         contentPres.SwitchContent(PageContentEnum.PageContent.page2);
+        
     }
 
     protected override void OnInitialized()
@@ -92,7 +146,7 @@
 
         if (firstRender)
         {
-            textComponent.DialogFished += DialogFinished;
+            Terminal.DialogFished += DialogFinished;
             //for (int x = 1; x < Num; x++) 
             //{
             //    Console.WriteLine("a");
@@ -107,8 +161,12 @@
 
     private async void newSearch(object sender, string e)
     {
+         SkipRender = false;
+        //await JS.InvokeVoidAsync("KillAnimations");
+        var TextModel = (SearchBoxModel)sender;
+        var type = sender.GetType();
         Console.WriteLine("New Search");
-        currentProducts = await db.ReturnproductsByTerm(fc.CreateDbContext(), e);
+        currentProducts = await db.ReturnproductsByTerm(fc.CreateDbContext(),TextModel.value);
 
         if (currentProducts.Count == 0)
         {
@@ -140,6 +198,7 @@
 
         modulePresentIndex.ToList().ForEach(x => Console.WriteLine(x));
          await InvokeAsync(() => { StateHasChanged(); });
+          await JS.InvokeVoidAsync("SlowLoadAnimation"); 
     }
 
     private void DialogFinished(object sender, EventArgs e)
@@ -147,7 +206,7 @@
         
         var x = new Action(async() => 
         { 
-            await JS.InvokeVoidAsync("animationFade", "nav"); 
+         //   await JS.InvokeVoidAsync("animationFade", "nav"); 
         });
 
        // x.Invoke();

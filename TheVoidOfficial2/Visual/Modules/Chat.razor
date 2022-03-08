@@ -14,7 +14,7 @@
 @inject IHttpContextAccessor httpContextAccessor;
 @inject ICookie cookie;
 @inject IJSRuntime JS;
-@inject IuserSettingManager _usm
+@inject IUserSettingManager _usm
 @implements IDisposable;
 
 <h3>Chat</h3>
@@ -53,7 +53,6 @@
     protected async override Task OnInitializedAsync()
     {
 
-
         var temp = httpContextAccessor;
         var user = await _state.GetAuthenticationStateAsync();
         //TODO this will kill somthing
@@ -72,8 +71,6 @@
         else
             return SendMessage();
     }
-
-
 
 
 

@@ -5,11 +5,11 @@ using static TheVoidOfficial2.Data.Enum.UserSetting;
 
 namespace TheVoidOfficial2.Logic.Database
 {
-    public class userSettingManager : IuserSettingManager
+    public class UserSettingManager : IUserSettingManager
     {
 
         ApplicationDbContext _db;
-        public userSettingManager(ApplicationDbContext db)
+        public UserSettingManager(ApplicationDbContext db)
         {
             _db = db;
         }

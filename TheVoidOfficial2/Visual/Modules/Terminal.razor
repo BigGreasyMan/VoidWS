@@ -1,0 +1,120 @@
+﻿@page "/Text"
+@inject IJSRuntime JS;
+
+@*Talk about optimsed text out with JAVAscipt aposed to orgin method*@
+
+<AuthorizeView>
+    <Authorized>
+        <label class="TerminalHead" id="header1"> 
+            Void Terminal V1 <span>©</span> <label style="margin-left:15px;">Page Selector</label> <label>Terminal Settings</label>
+        </label>
+        <div>
+        </div>
+        <label class="Info">Authentication Status : 
+            <span style="color:white;"> @authStatus</span>
+        </label>
+        <label class="Info">Username :  <span style="color:white">@User</span></label>
+
+    </Authorized>
+    <NotAuthorized>
+                <label class="TerminalHead" id="header1"> 
+            Void Terminal V1 <span>©</span> <label style="margin-left:15px;">Page Selector</label> <label style="color:black;">Terminal Settings</label>
+        </label>
+        <div>
+        </div>
+    <label class="Info">Authentication Status : <span style="color:white;"> @authStatus</span></label>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+<label class="TerminalHead" id="flowHead">
+   Location: <span>"/"</span> -  Data Rec: <span>102 KB</span> - Data Sent: <span>102 KB</span> -   
+</label>
+
+
+<br />
+
+<br />
+
+<div id="textComp"  style=" text-align:left; width:100%; font-size:15px;  color:#843EE6"></div>
+
+
+<br />
+
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    [Parameter]
+    public string _dialog { get; set; }
+
+    double speedMod = 1;
+
+    int delay = 50;
+
+    bool _isDialogActive = false;
+
+    string User;
+
+    string _outputtedDialog  = "";
+
+    public event EventHandler DialogFished;
+
+    ElementReference _lab;
+    string authStatus = "notAuthenticated";
+
+
+    private  ValueTask PrintText()
+    {
+
+        //var currentDialog = _dialog.ToCharArray();
+        //for(int x = 0; x < currentDialog.Count(); x++)
+        //{
+
+        //    await Task.Delay((int)(delay * (speedMod)));
+
+        //    var cChar = currentDialog[x].ToString();
+        //    if (cChar == "<")
+        //    {
+        //        _outputtedDialog += "<br/>";
+        //        await JS.InvokeVoidAsync("appendSpace","<br/>");
+
+        //        StateHasChanged();
+        //        continue;
+        //    }
+        //    _outputtedDialog += currentDialog[x].ToString();
+        //    await JS.InvokeVoidAsync("appendSpace",currentDialog[x].ToString());
+        //    StateHasChanged();
+
+
+        //}
+        return JS.InvokeVoidAsync("TerminalOut",_dialog);
+        //DialogFished?.Invoke(this, EventArgs.Empty);
+
+    }
+
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await PrintText();
+            DialogFished?.Invoke(this, EventArgs.Empty);
+    }
+    protected override void OnInitialized()
+    {
+       // PrintText();
+        base.OnInitialized();
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateTask;
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            User = authState.User.Identity.Name;
+            authStatus = "Authenticated";    
+        }
+      
+    }
+}

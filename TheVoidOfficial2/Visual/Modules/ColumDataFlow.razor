@@ -1,0 +1,46 @@
+﻿ @inject IJSRuntime JS;
+<div id="@Name" style="display:inline-block; width:280px; font-style:italic;">
+            <label id="Title" style="color:white;" >@Title</label>
+            <hr  style="border-top: 1px solid #3EE684; border-bottom:0px; margin-top:0px;"/>
+            <div style="position:relative;">
+                <canvas id="canvas" style=" position: absolute; width:100%; height:100%;">
+
+                </canvas>
+                <div style="margin:8px; display:flow; flex-direction:column;">
+
+
+                    @for(int x = 0; x < Data.Count; x++)
+                    {
+                         <div>
+                            <div style="color:#3EE684; font-style:italic; ">@ReturnMarkup(Data[x].Date ) </div>
+                            <div style="color:white; word-wrap:break-word;">@ReturnMarkup(Data[x].Content) <span style="color:#843EE6;">|</span></div>
+                        </div>
+                         <br />
+            
+                    }
+                </div >
+                 <hr id="RenderBar"  style="position:absolute; border-top: 1px solid #3EE684; border-bottom:0px; margin-top:0px; width:100%;"/>
+
+            </div>
+        </div>
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public List<ColumnDataFlowModel> Data { get; set; }
+
+
+    [Parameter]
+    public string Name { get; set; }
+
+    private MarkupString ReturnMarkup(string val)
+    {
+        return (MarkupString)val;
+    }
+
+    public async Task Load()
+    {
+        await JS.InvokeVoidAsync("FlowAnimation", Name,Title); 
+    }
+}
