@@ -1,5 +1,20 @@
-﻿@page "/ChatMod"
+﻿@page "/ChatMod/{_streamID:int}"
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.SignalR.Client;
+@using System.ComponentModel
+@using Microsoft.AspNetCore.Identity
+@using TheVoidOfficial2.Logic.Database
+@using TheVoidOfficial2.Logic.Middleware
+@using TheVoidOfficial2.Logic;
+@using TheVoidOfficial2.Logic.Commuication;
+@inject NavigationManager _navigationManager
+@inject AuthenticationStateProvider _state
+@inject UserManager<IdentityUser> _userManager
+@inject IHttpContextAccessor httpContextAccessor;
+@inject ICookie cookie;
 @inject IJSRuntime JS;
+@inject IUserSettingManager _usm
+@implements IDisposable;
 
 
 
@@ -75,11 +90,11 @@
                                 You have hit the MaxCharCount !!
                             </div>
                             <div id="InputContainer"  style="border: 1px solid #843EE6; border-radius: 3px; position: relative; display: flex;">
-                                <textarea  id="InputBox" placeholder="Type a Message" maxlength="100" style="margin: 0%; padding: 0%; border: 0px; font-family: 'Times New Roman', Times, serif;  width: 100%; font-size: 20px;  color: white; resize: none;   background-color: transparent; ">
+                                <textarea @bind=@TextAreaContent @ref="TextArea"  id="InputBox" placeholder=@TextAreaPlaceHolder maxlength="100" class=@TextAreaClass >
                                 </textarea>
                             </div>
                             <div style="font-size: 25px; font-style: italic; color: white;  position: relative; display: flex; justify-content: flex-end; gap: 5px;" >
-                                <div style="display: inline;">
+                                <div @onclick=SendMessage style="display: inline;">
                                         Send
                                 </div>
                                 <img  src="/SettingsCog.svg" style="width: 20px; ">
@@ -96,13 +111,121 @@
 
 @code {
     //string myMarkup = "<source src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' type='video/mp4'> a </source>";
+    [Parameter]
+    public int _streamID { get; set; } = 0;
+
+    HubConnection _hubConnection;
+
+    List<string> _messages = new List<string>();
+
+    bool _sentDisabled = true;
+
+    string _sendValue = "";
+
+    string _error = "everything is fine";
+
+    string _hubUrl;
+
+    string _userName = "";
+
+    string _userId = "";
+
+    string TextAreaClass = "TextArea TextAreaEnabled";
+
+    string TextAreaPlaceHolder = "Must be logged in";
+
+    string TextAreaContent = "";
+
+    ElementReference TextArea;
+
+    protected async override Task OnInitializedAsync()
+    {
+
+        var temp = httpContextAccessor;
+        var user = await _state.GetAuthenticationStateAsync();
+        //TODO this will kill somthing
+         _userId = user.User.Claims.First().Value;
+
+        if (user.User.Identity.IsAuthenticated) 
+        { 
+            _sentDisabled = false; _userName = user.User.Identity.Name;
+        }
+    }
+
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+
             await JS.InvokeVoidAsync("OnStreamingPageLoad");
+
+
+              var cookieData = await cookie.GetCookie("pref");
+
+            if (cookieData == null)
+            {
+                var setting = await _usm.GetSetting(_userId);
+               
+                await cookie.Create("pref", setting.textColor, 1);
+            }
+            else
+            {
+            cookieData = cookieData.Split(";")[0];
+
+            }
+
+            if (_streamID != 0 )
+                {
+
+                    string baseUrl = _navigationManager.BaseUri;
+                    _hubUrl = baseUrl.TrimEnd('/') + GlobalChatHub.HubUrl;
+                    //rooms?
+                    Console.WriteLine("Connection Made at room:" + _streamID);
+                    _hubConnection = new HubConnectionBuilder()
+                        .WithUrl(_hubUrl)
+                        .Build();
+
+                    _hubConnection.On<string, string>("ClientRec", ClientRec);
+
+                    await _hubConnection.StartAsync().ConfigureAwait(true);
+
+                    await _hubConnection.SendAsync("JoinRoom", _streamID.ToString(),_userName);
+                    _messages.Add(_userName + "|" + "had joined the room");
+                        StateHasChanged();
+                }
+                else
+                {
+
+                    _error = "you need to pass a streamID in url";
+                    StateHasChanged();
+                }
         }
+    }
+
+
+    private async void ClientRec(string message,string name)
+    {
+        _messages.Add(name + "|" + message);
+        //TODO maybe improve
+
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    private  Task SendMessage()
+    {
+        Console.WriteLine("Does this worky? : "+TextAreaContent);
+       
+        //because of return we cannot factorise
+        if (TextAreaContent.Length == 0) { return Task.CompletedTask; }
+        _messages.Add(_userName + "|" + _sendValue);
+         StateHasChanged();
+        return _hubConnection.SendAsync("Broadcast", _streamID.ToString(),_sendValue,_userName);
+    }
+
+     public void Dispose()
+    {
+        //_hubConnection.InvokeAsync("LeaveRoom",_streamID,_userName);
     }
 
   

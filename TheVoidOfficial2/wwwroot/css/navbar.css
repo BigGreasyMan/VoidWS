@@ -309,3 +309,23 @@ a:active { text-decoration: none; }
 .MessageContainer::-webkit-scrollbar-thumb {
 	border: 1px solid #843EE6;
 }
+
+.TextArea {
+	margin: 0%;
+	padding: 0%;
+	border: 0px;
+	font-family: 'Times New Roman', Times, serif;
+	width: 100%;
+	font-size: 20px;
+	color: white;
+	resize: none;
+	background-color: transparent;
+}
+.TextAreaDisabled {
+		opacity: 0.6;
+		pointer-events: none;
+		
+	}
+.TextAreaEnabled {
+		opacity: 1;
+	}

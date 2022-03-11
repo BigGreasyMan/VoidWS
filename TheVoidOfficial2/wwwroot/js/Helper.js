@@ -270,52 +270,57 @@ function SlowLoadAnimation() {
     var IsStatsActive = false;
     var Offset = -3;
     var IsCharMessageOn = false;
-
+    var ActiveAnimation = false;
     var StatsAnimation = null;
     function Stats() {
         if (!IsStatsActive) {
-
-
+            if (ActiveAnimation) { return; }
+            ActiveAnimation = true;
             StatsPannel.style.position = "relative";
             StatsAnimation = setInterval(AnimateStatsOut, 50);
         }
         else {
+            if (ActiveAnimation) { return; }
+            ActiveAnimation = true;
             StatsAnimation = setInterval(AnimateStatsIn, 50);
         }
     }
 
-    function AnimateStatsOut() {
+function AnimateStatsOut() {
 
-      
-        console.log("Ran")
-        StatsPannel.style.top = Offset + "%";
-        Offset += 0.2;
-        if (Offset >= 0) {
-            console.log("in")
-            Offset = 0;
-            clearInterval(StatsAnimation)
-            IsStatsActive = true
+    console.log("Ran")
+    StatsPannel.style.top = Offset + "%";
+    Offset += 0.2;
+    if (Offset >= 0) {
+        console.log("in")
+        Offset = 0;
+        clearInterval(StatsAnimation)
+        ActiveAnimation = false;
+        IsStatsActive = true
 
-            return;
-        }
-
+        return;
     }
-    function AnimateStatsIn() {
 
-        console.log("Ran")
-        StatsPannel.style.top = Offset + "%";
-        Offset -= 0.2;
+}
+function AnimateStatsIn() {
+
+    console.log("Ran")
+    StatsPannel.style.top = Offset + "%";
+    Offset -= 0.2;
 
 
-        if (Offset <= -3) {
-            console.log("in")
-            Offset = -3;
-            clearInterval(StatsAnimation)
-            IsStatsActive = false
-            StatsPannel.style.position = "absolute";
-            return;
-        }
+    if (Offset <= -3) {
+        console.log("in")
+        Offset = -3;
+        clearInterval(StatsAnimation)
+        IsStatsActive = false
+        ActiveAnimation = false;
+        StatsPannel.style.position = "absolute";
+        return;
     }
+}
+
+    
 
     function Load() {
         InputBox.style.height = 0;
